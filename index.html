@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Tidal Science By Saikat Joardar | Student & Parent Portal</title>
+    <meta name="description" content="Official Student Portal of Tidal Science by Saikat Joardar. Check academic status, attendance, and fee details online.">
+    <meta name="keywords" content="Tidal Science, Saikat Joardar, Science Teacher, Class 7 8 9 Science, Physical Science, Life Science, Mathematics">
+    <meta name="author" content="Saikat Joardar">
+    <meta name="robots" content="index, follow">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; scroll-behavior: smooth; }
+        
+        /* প্রফেশনাল ডিপ স্পেস ব্লু ব্যাকগ্রাউন্ড */
+        body { background: #070b14; color: #f1f5f9; min-height: 100vh; overflow-x: hidden; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #070b14; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
+        
+        header { background: rgba(7, 11, 20, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); color: white; padding: 15px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(14, 165, 233, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
+        
+        /* লোগো সেকশন - নতুন সিএসএস যোগ করা হয়েছে */
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .header-logo-img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(14, 165, 233, 0.5); object-fit: cover; }
+        .logo-text-group { display: flex; align-items: center; gap: 10px; }
+        .logo-text { font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: linear-gradient(90deg, #0ea5e9, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo span.by-text { color: #fbbf24; font-weight: 600; font-size: 15px; text-transform: none; letter-spacing: 0px; border-left: 2px solid rgba(255,255,255,0.2); padding-left: 10px; }
+        
+        /* হিরো সেকশনের লোগো স্টাইল */
+        .hero-logo-container { margin-bottom: 20px; text-align: center; }
+        .hero-logo-img { width: 160px; height: 160px; border-radius: 20px; box-shadow: 0 8px 25px rgba(14, 165, 233, 0.25); border: 1px solid rgba(14, 165, 233, 0.3); }
+
+        nav { display: flex; align-items: center; gap: 20px; }
+        nav a { color: #cbd5e1; text-decoration: none; font-size: 14px; font-weight: 600; transition: 0.3s; }
+        nav a:hover { color: #0ea5e9; }
+        
+        /* অ্যাডমিন বাটন - টিল গ্লো */
+        .admin-btn { background: rgba(14, 165, 233, 0.15); color: #38bdf8 !important; padding: 10px 20px; border-radius: 8px; font-weight: bold; border: 1px solid rgba(14, 165, 233, 0.4); cursor: pointer; transition: 0.3s; }
+        .admin-btn:hover { background: #0ea5e9; color: #070b14 !important; box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); transform: translateY(-2px); }
+
+        .notice-bar { background: #0f172a; color: #fbbf24; padding: 10px 6%; font-size: 14px; font-weight: 600; overflow: hidden; white-space: nowrap; border-bottom: 1px solid rgba(14, 165, 233, 0.1); display: flex; align-items: center; }
+        .notice-title { background: #2563eb; color: white; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 15px; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .notice-scroll { display: inline-block; padding-left: 100%; animation: marquee 25s linear infinite; }
+        @keyframes marquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+
+        /* হিরো সেকশন - হাই ইমপ্যাক্ট টাইটেল */
+        .hero { min-height: 65vh; background: linear-gradient(rgba(7, 11, 20, 0.85), rgba(7, 11, 20, 0.98)), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 40px 20px; }
+        .hero h1 { font-size: clamp(32px, 5vw, 56px); margin-bottom: 15px; font-weight: 800; letter-spacing: -1px; }
+        .hero-title-main { background: linear-gradient(135deg, #0ea5e9 30%, #22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
+        .hero-title-sub { color: #fbbf24; font-size: clamp(24px, 4vw, 36px); font-weight: 700; margin-top: 10px; display: block; }
+        .hero p { font-size: 18px; margin-bottom: 30px; color: #94a3b8; max-width: 700px; line-height: 1.6; }
+        .hero-btns { display: flex; gap: 15px; }
+        
+        .btn-blue { background: #2563eb; color: white; border: none; padding: 14px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4); display: inline-block; text-decoration: none; text-align: center; }
+        .btn-blue:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5); }
+        
+        .btn-outline { background: transparent; color: #38bdf8; border: 2px solid rgba(56, 189, 248, 0.5); padding: 14px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; display: inline-block; text-decoration: none; text-align: center; }
+        .btn-outline:hover { background: rgba(56, 189, 248, 0.1); border-color: #38bdf8; transform: translateY(-2px); }
+
+        .features-section { padding: 60px 6%; max-width: 1300px; margin: auto; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-size: 32px; color: #f8fafc; font-weight: 700; }
+        .section-title h2 span { color: #fbbf24; }
+        .section-title p { color: #64748b; margin-top: 5px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        
+        .feature-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(14, 165, 233, 0.1); padding: 30px; border-radius: 16px; text-align: left; transition: 0.3s; position: relative; overflow: hidden; }
+        .feature-card:hover { transform: translateY(-5px); border-color: rgba(56, 189, 248, 0.5); background: rgba(30, 41, 59, 0.6); }
+        .feature-icon { font-size: 36px; margin-bottom: 15px; display: inline-block; color: #38bdf8; }
+        .feature-card h3 { font-size: 20px; color: #fbbf24; margin-bottom: 10px; }
+        .feature-card p { color: #cbd5e1; font-size: 14px; line-height: 1.6; }
+
+        /* সার্চ সেকশন - প্রিমিয়াম প্রফেশনাল মেটালিক ফিনিশ */
+        .search-section { padding: 50px 6%; max-width: 800px; margin: auto; }
+        .search-card { background: linear-gradient(145deg, #0b1329, #111d3a); padding: 40px; border-radius: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); text-align: center; border: 1px solid rgba(14, 165, 233, 0.25); }
+        .search-card h2 { font-size: 28px; color: #ffffff; margin-bottom: 8px; }
+        .search-card p { color: #94a3b8; margin-bottom: 25px; }
+        .search-box { display: flex; gap: 12px; margin-bottom: 25px; }
+        .search-box input { flex: 1; padding: 15px 20px; border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 12px; font-size: 16px; outline: none; background: #070b14; color: #ffffff; transition: 0.3s; }
+        .search-box input:focus { border-color: #0ea5e9; box-shadow: 0 0 20px rgba(14, 165, 233, 0.25); }
+        .search-box button { background: #2563eb; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
+        .search-box button:hover { background: #0ea5e9; box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4); }
+
+        .loader { display: none; text-align: center; color: #38bdf8; font-weight: bold; margin: 20px 0; font-size: 15px; }
+        .error { display: none; text-align: center; color: #f87171; font-weight: bold; margin: 20px 0; font-size: 15px; }
+        
+        .result-card { display: none; background: #070b14; border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 16px; padding: 25px; margin-top: 25px; text-align: left; }
+        .card-header { border-bottom: 2px dashed rgba(14, 165, 233, 0.2); padding-bottom: 15px; margin-bottom: 20px; }
+        .card-header h3 { color: #22d3ee; font-size: 24px; font-weight: 700; }
+        .card-header p { color: #94a3b8; font-size: 13px; margin-top: 4px; }
+        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-bottom: none; }
+        .label { color: #94a3b8; font-weight: 500; }
+        .value { color: #f8fafc; font-weight: 600; }
+        .badge { padding: 6px 14px; border-radius: 12px; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+        .paid { background: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); }
+        .unpaid { background: #5c3e03; color: #fbbf24; }
+        .badge-soon { background: rgba(14, 165, 233, 0.1); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.2); }
+
+        /* ফুটার এবং ক্রেডিট */
+        footer { background: #040810; color: #64748b; text-align: center; padding: 60px 6% 30px; border-top: 1px solid rgba(14, 165, 233, 0.1); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: left; max-width: 1300px; margin: 0 auto; padding-bottom: 30px; }
+        .footer-col h4 { color: #ffffff; margin-bottom: 15px; font-size: 18px; position: relative; }
+        .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 30px; height: 2px; background: #0ea5e9; }
+        .footer-col p, .footer-col a { color: #94a3b8; font-size: 14px; text-decoration: none; margin-bottom: 8px; display: block; line-height: 1.6; }
+        .footer-col a:hover { color: #fbbf24; }
+        
+        .dev-credit { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; font-size: 13px; color: #64748b; }
+        .dev-name { color: #fbbf24; font-weight: bold; }
+
+        /* মোডাল ডিজাইন এবং অ্যানিমেশন */
+        .modal-overlay { display: none; background: rgba(4, 8, 16, 0.9); height: 100vh; position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); align-items: center; justify-content: center; padding: 15px; transition: all 0.3s ease; }
+        
+        .login-box { width: 100%; max-width: 400px; background: #111827; padding: 40px 30px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(14, 165, 233, 0.3); text-align: center; position: relative; transform: scale(0.95); animation: modalEntry 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1); }
+        .login-box h3 { font-size: 22px; color: #fbbf24; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .login-box p { font-size: 14px; color: #94a3b8; margin-bottom: 25px; line-height: 1.5; }
+        .login-box input[type="password"] { width: 100%; padding: 16px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; font-size: 20px; outline: none; background: #070b14; color: #f8fafc; text-align: center; letter-spacing: 6px; transition: 0.3s; }
+        .login-box input[type="password"]:focus { border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.25); background: #070a12; }
+        .unlock-btn { width: 100%; background: #2563eb; color: white; border: none; padding: 15px; border-radius: 14px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25); }
+        .unlock-btn:hover { background: #0ea5e9; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(14, 165, 233, 0.35); }
+        .unlock-btn:active { transform: translateY(0); }
+        .cancel-txt { margin-top: 25px; cursor: pointer; color: #ef4444; font-weight: 600; font-size: 13px; opacity: 0.8; transition: 0.2s; display: inline-block; }
+        .cancel-txt:hover { opacity: 1; transform: scale(1.05); }
+
+        .admission-container { width: 100%; max-width: 950px; background: #111827; border-radius: 24px; border: 1px solid #0ea5e9; box-shadow: 0 25px 60px rgba(0,0,0,0.7); position: relative; overflow: hidden; transform: scale(0.95); animation: modalEntry 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1); }
+        .admission-header-bar { background: #070b14; border-bottom: 2px dashed rgba(14, 165, 233, 0.2); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .admission-header-bar h3 { color: #fbbf24; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+        .admission-header-bar h3 span { color: #fbbf24; font-size: 14px; margin-right: 8px; vertical-align: middle; }
+        
+        .admission-iframe-wrapper { background: #111827; padding: 10px; margin: 20px; border-radius: 16px; overflow: hidden; height: 75vh; border: 2px solid rgba(14, 165, 233, 0.2); box-shadow: inset 0 4px 10px rgba(0,0,0,0.4); -webkit-overflow-scrolling: touch; }
+        .admission-iframe-wrapper iframe { border-radius: 12px; background: #ffffff; }
+        
+        .close-modal-btn { background: #ef4444; color: white; border: none; width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25); }
+        .close-modal-btn:hover { background: #dc2626; transform: scale(1.05); }
+
+        .cancel-back-btn { background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25); transition: 0.2s; }
+        .cancel-back-btn:hover { background: #b91c1c; transform: scale(1.03); }
+
+        @keyframes modalEntry { to { transform: scale(1); } }
+
+        #admin-portal { display: none; background: #070b14; min-height: 100vh; padding: 20px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #111827; padding: 18px 30px; border-radius: 16px; color: white; border: 1px solid rgba(14, 165, 233, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .admin-header h3 { font-size: 20px; font-weight: 700; }
+
+        .admin-db-container { border-radius: 16px; border: 2px dashed rgba(14, 165, 233, 0.2); background: #111827; height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .db-icon { font-size: 64px; margin-bottom: 20px; animation: pulse 2s infinite; }
+        .db-title { font-size: 24px; color: #22d3ee; font-weight: bold; margin-bottom: 25px; }
+        
+        .open-db-btn { background: linear-gradient(135deg, #0284c7, #2563eb); color: white; border: none; padding: 16px 40px; border-radius: 12px; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); display: flex; align-items: center; gap: 10px; }
+        .open-db-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4); }
+
+        .logout-btn { padding: 10px 22px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2); }
+        .logout-btn:hover { background: #dc2626; transform: translateY(-1px); }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 4%; flex-direction: column; gap: 15px; text-align: center; }
+            .logo { flex-direction: column; gap: 8px; }
+            .logo-text-group { flex-direction: column; gap: 5px; }
+            .header-logo-img { width: 45px; height: 45px; }
+            .logo span.by-text { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 5px; }
+            nav { width: 100%; justify-content: center; flex-wrap: wrap; gap: 12px; }
+            nav a { font-size: 13px; }
+            .admin-btn { width: 100%; text-align: center; padding: 8px 15px; }
+            .hero { height: auto; padding: 40px 20px; }
+            .hero-logo-img { width: 130px; height: 130px; }
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 15px; }
+            .hero-btns { width: 100%; flex-direction: column; gap: 12px; }
+            .btn-blue, .btn-outline { width: 100%; padding: 14px 20px; }
+            .search-section { padding: 30px 4%; }
+            .search-card { padding: 25px 20px; border-radius: 20px; }
+            .search-card h2 { font-size: 22px; }
+            .search-box { flex-direction: column; gap: 10px; }
+            .search-box input { width: 100%; padding: 14px; font-size: 15px; }
+            .search-box button { width: 100%; padding: 14px; }
+            .info-row { font-size: 14px; padding: 10px 0; }
+            .badge { padding: 4px 10px; font-size: 11px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 25px; }
+            
+            .modal-overlay { padding: 10px; }
+            .login-box { padding: 30px 20px; border-radius: 20px; }
+            .login-box h3 { font-size: 19px; }
+            .login-box input[type="password"] { padding: 12px; font-size: 18px; }
+            .admission-container { border-radius: 20px; width: 100%; }
+            .admission-header-bar { padding: 15px 20px; }
+            .admission-header-bar h3 { font-size: 16px; }
+            .admission-iframe-wrapper { margin: 10px; height: 78vh; padding: 4px; background: #111827; }
+            .admin-header { flex-direction: column; gap: 12px; text-align: center; padding: 15px; }
+            #admin-portal { padding: 10px; }
+            .admin-db-container { height: 70vh; padding: 15px; }
+            .open-db-btn { width: 100%; justify-content: center; padding: 15px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="main-website">
+    <header>
+        <div class="logo">
+            <img src="logo.jpeg" alt="TS" class="header-logo-img">
+            <div class="logo-text-group">
+                <span class="logo-text">Tidal Science</span>
+                <span class="by-text">By Saikat Joardar</span>
+            </div>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#portal-area">Student Portal</a>
+            <a href="javascript:void(0)" onclick="showAdmission()">Enrollment</a>
+            <a href="javascript:void(0)" onclick="showLogin()" class="admin-btn">Teacher Login</a>
+        </nav>
+    </header>
+
+    <div class="notice-bar">
+        <span class="notice-title">Notice</span>
+        <div id="noticeContainer" class="notice-scroll">New batches for Class 9 (Physical Science & Math) are enrolling now! Results and records are regularly updated in the cloud server. Contact Saikat Sir for any portal queries.</div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-logo-container">
+            <img src="logo.jpeg" alt="Tidal Science Banner Logo" class="hero-logo-img">
+        </div>
+        <h1>
+            <span class="hero-title-main">Tidal Science</span>
+            <span class="hero-title-sub">By Saikat Joardar</span>
+        </h1>
+        <p>A premium and logical learning approach for Class 7, 8, and 9 students. Master Physical Science, Life Science, and Mathematics with deep conceptual clarity and board-exam oriented guidance.</p>
+        <div class="hero-btns">
+            <a href="#portal-area" class="btn-blue">Check Live Status</a>
+            <a href="javascript:void(0)" onclick="showAdmission()" class="btn-outline">Admission Inquiry</a>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="section-title">
+            <h2>Our <span>Specialties & Courses</span></h2>
+            <p>We are always committed to improving your knowledge and academic value</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🔬</span>
+                <h3>Class 7 & 8: পরিবেশ ও বিজ্ঞান</h3>
+                <p>স্কুল সিলেবাসের প্রতিটি টপিক সহজ উদাহরণ এবং প্র্যাক্টিকাল লজিকের মাধ্যমে শেখানো হয়, যা স্টুডেন্টদের বিজ্ঞানের প্রতি ভালোবাসা বাড়িয়ে দেয়।</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📐</span>
+                <h3>Class 9: ভৌত, জীবন বিজ্ঞান ও গণিত</h3>
+                <p>নবম শ্রেণীর ভৌত ও জীবন বিজ্ঞানের জটিল থিওরি এবং গণিতের গাণিতিক সমস্যাগুলোর সহজতম সমাধান ও নিয়মিত বোর্ড লেভেল মক টেস্ট।</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3>Live Status Dashboard</h3>
+                <p>ছাত্রছাত্রী এবং অভিভাবকরা সরাসরি নাম বা মোবাইল নম্বর দিয়ে পোর্টালে লগইন করে তাদের উপস্থিতি, ব্যাচের সময়সূচী এবং পেমেন্ট স্ট্যাটাস লাইভ ট্র্যাক করতে পারবেন।</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-section" id="portal-area">
+        <div class="search-card">
+            <h2>Student Status Search</h2>
+            <p>Enter Student Name or Registered Mobile Number</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="e.g. Saikat Joardar or 9832971783">
+                <button onclick="startSearch()">Search</button>
+            </div>
+            <div id="loader" class="loader">Checking database... Please wait.</div>
+            <div id="error" class="error">No records found! Please check your spelling or mobile number and try again.</div>
+            <div id="resultCard" class="result-card">
+                <div class="card-header">
+                    <h3 id="studentName">Student Name</h3>
+                    <p id="studentId">UID: -</p>
+                </div>
+                <div class="info-row"><span class="label">Mobile Number</span><span class="value" id="studentMobile">-</span></div>
+                <div class="info-row"><span class="label">Batch / Class</span><span class="value" id="studentCourse">-</span></div>
+                <div class="info-row"><span class="label">Admission Date</span><span class="value" id="studentAdmission">-</span></div>
+                <div class="info-row"><span class="label">Total Attendance</span><span class="value" id="studentAttendance" style="color: #22d3ee;">0 Days</span></div>
+                <div class="info-row"><span class="label">Monthly Assignment</span><span id="studentAssignment" class="badge badge-soon">Coming Soon</span></div>
+                <div class="info-row"><span class="label">Payment Status</span><span id="studentPayment" class="badge">-</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Learning Center</h4>
+                <p>Tidal Science Portal</p>
+                <p>Nadia, West Bengal, India</p>
+            </div>
+            <div class="footer-col">
+                <h4>Saikat Joardar</h4>
+                <p>Mentor & Academic Guide</p>
+                <p>Helpline: <a href="tel:+919832971783">+91 9832971783</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Data Security</h4>
+                <p>All student records and academic performance data are encrypted and securely stored.</p>
+            </div>
+        </div>
+        <div class="credit-container">
+            <p>© 2026 Tidal Science. All Rights Reserved.</p>
+            <p class="dev-credit">Designed & Developed by <span class="dev-name">Saikat Joardar</span><br>
+            Contact: <a href="mailto:sjoardar991@gmail.com" style="color: #38bdf8; display: inline; font-size: 13px; text-decoration: none;">sjoardar991@gmail.com</a></p>
+        </div>
+    </footer>
+</div>
+
+<div id="admission-screen" class="modal-overlay">
+    <div class="admission-container">
+        <div class="admission-header-bar">
+            <h3><span>●</span> Admission Enquiry Form</h3>
+            <button class="close-modal-btn" onclick="hideAdmission()">✕</button>
+        </div>
+        <div class="admission-iframe-wrapper">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdnGTasXUi4yZcsxK3ft53aqUcflJ_J7nDDNZkNza29iA045g/viewform?usp=dialog?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+    </div>
+</div>
+
+<div id="teacher-portal-screen" class="modal-overlay">
+    <div class="admission-container">
+        <div class="admission-header-bar">
+            <h3><span>●</span> System Notification Gateway</h3>
+            <button class="cancel-back-btn" onclick="hideTeacherPortal()">✕ Cancel & Back</button>
+        </div>
+        <div class="admission-iframe-wrapper" id="teacher-iframe-container">
+        </div>
+    </div>
+</div>
+
+<div id="login-screen" class="modal-overlay">
+    <div class="login-box">
+        <h3>Instructor Gateway</h3>
+        <p>Enter Master Password to access Admin Desk</p>
+        <input type="password" id="adminPass" placeholder="••••••••">
+        <button class="unlock-btn" onclick="handleLogin()">Authenticate Portal</button>
+        <span class="cancel-txt" onclick="hideLogin()">Return to Home</span>
+    </div>
+</div>
+
+<div id="admin-portal">
+    <div style="max-width: 1500px; margin: auto;">
+        <div class="admin-header">
+            <h3><span style="color: #fbbf24;">●</span> Tidal Science Control Center</h3>
+            <button class="logout-btn" onclick="logoutSessionWithoutAlert()">Logout Session</button>
+        </div>
+        
+        <div class="admin-db-container">
+            <div class="db-icon">🔒</div>
+            <div class="db-title">Secure Live Database Gateway</div>
+            <button class="open-db-btn" onclick="openLiveDatabase()">
+                <span>🚀</span> Open Student Database (Sheet)
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbxahvqCygfNMlM52VwE_rJIOC5pMeDTxtjA9lgFL7WGajHHsMPOS99ToNp0gl-FnZJiCg/exec';
+    
+    let securedSheetUrl = ""; 
+    let sessionTimeoutTimer;
+
+    const SESSION_TIMEOUT_LIMIT = 15 * 60 * 1000; 
+
+    function showTeacherPortal() {
+        document.getElementById('teacher-portal-screen').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function hideTeacherPortal() {
+        document.getElementById('teacher-portal-screen').style.display = 'none';
+        document.getElementById('teacher-iframe-container').innerHTML = ''; 
+        document.body.style.overflow = 'auto';
+    }
+
+    function openDashboardSecurely(pass) {
+        var container = document.getElementById('teacher-iframe-container');
+        container.innerHTML = ''; 
+
+        var iframe = document.createElement('iframe');
+        iframe.name = 'secure_teacher_frame';
+        iframe.width = '100%';
+        iframe.height = '100%';
+        iframe.frameBorder = '0';
+        container.appendChild(iframe);
+
+        var form = document.createElement("form");
+        form.method = "POST"; 
+        form.action = webAppUrl + "?mode=attendance"; 
+        form.target = "secure_teacher_frame"; 
+
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "pass";
+        input.value = pass;
+        
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+
+        showTeacherPortal();
+        startSessionCountdown();
+    }
+
+    async function startSearch() {  
+        const query = document.getElementById('searchInput').value.trim();  
+        const loader = document.getElementById('loader');  
+        const error = document.getElementById('error');  
+        const card = document.getElementById('resultCard');  
+        
+        if (!query) return alert("Please enter Name or Mobile Number!");  
+        
+        loader.style.display = 'block';  
+        error.style.display = 'none';  
+        card.style.display = 'none';  
+        
+        try {  
+            const response = await fetch(`${webAppUrl}?q=${encodeURIComponent(query)}`);  
+            const result = await response.json();  
+            
+            if (result.message && result.message.includes("স্থগিত")) {  
+                loader.style.display = 'none';  
+                error.innerText = result.message;  
+                error.style.display = 'block';  
+                return;  
+            }  
+            
+            if (!result.success) {  
+                loader.style.display = 'none';  
+                error.innerText = "No records found! Please check your spelling or mobile number and try again.";  
+                error.style.display = 'block';  
+                return;
+            }  
+            
+            const student = result.data;  
+            document.getElementById('studentName').innerText = student.name;  
+            document.getElementById('studentId').innerText = "UID: " + student.id;  
+            document.getElementById('studentMobile').innerText = student.mobile;  
+            document.getElementById('studentCourse').innerText = student.course;  
+            document.getElementById('studentAdmission').innerText = student.admission || "N/A";  
+            document.getElementById('studentAttendance').innerText = (student.totalAttendance || 0) + " Days";  
+            
+            const payBadge = document.getElementById('studentPayment');  
+            if (student.lastPayment === "No Record" || !student.lastPayment) {  
+                payBadge.innerText = "No Record";  
+                payBadge.className = "badge unpaid";  
+            } else {  
+                let paymentDisplay = student.lastPayment;  
+                if (student.lastPaymentDate && student.lastPaymentDate !== "N/A") {  
+                    paymentDisplay += " (" + student.lastPaymentDate + ")";  
+                }  
+                payBadge.innerText = paymentDisplay;  
+                payBadge.className = "badge paid";  
+            }  
+            
+            loader.style.display = 'none';  
+            card.style.display = 'block';  
+        } catch (err) {  
+            loader.style.display = 'none';  
+            error.style.display = 'block';  
+        }  
+    }
+
+    document.getElementById("searchInput").addEventListener("keyup", function(e) {  
+        if (e.key === "Enter") startSearch();  
+    });
+
+    function showAdmission() {  
+        document.getElementById('admission-screen').style.display = 'flex';  
+        document.body.style.overflow = 'hidden';  
+    }  
+    function hideAdmission() {  
+        document.getElementById('admission-screen').style.display = 'none';  
+        document.body.style.overflow = 'auto';  
+    }
+
+    function showLogin() {  
+        document.getElementById('login-screen').style.display = 'flex';  
+        document.getElementById('adminPass').focus();  
+    }  
+    function hideLogin() {  
+        document.getElementById('login-screen').style.display = 'none';  
+        document.getElementById('adminPass').value = '';  
+    }
+
+  async function handleLogin() {  
+    const passwordInput = document.getElementById('adminPass').value.trim();  
+    if (!passwordInput) return alert("Enter Password!");  
+    
+    const unlockBtn = document.querySelector('.unlock-btn');  
+    const originalText = unlockBtn.innerText;  
+    unlockBtn.innerText = "Verifying...";  
+    unlockBtn.disabled = true;  
+    
+    try {  
+        const secureUrl = `${webAppUrl}?checkPass=${encodeURIComponent(passwordInput)}`;
+        const response = await fetch(secureUrl);
+        
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("text/html")) {
+            hideLogin();
+            openDashboardSecurely(passwordInput);
+            return;
+        }
+
+        const result = await response.json();  
+        
+        if (result.message && (result.message.includes("স্থগিত") || result.message.includes("Expired"))) {
+            hideLogin();
+            openDashboardSecurely(passwordInput);
+            return;
+        }
+
+        if (result.authenticated === true) {  
+            if (result.role === "ADMIN") {
+                securedSheetUrl = result.targetUrl; 
+                
+                sessionStorage.setItem("isAdminLoggedIn", "true");
+                sessionStorage.setItem("storedSheetUrl", securedSheetUrl);
+
+                document.getElementById('login-screen').style.display = 'none';  
+                document.getElementById('main-website').style.display = 'none';  
+                document.getElementById('admin-portal').style.display = 'block';  
+                
+                startSessionCountdown();
+            } else {
+                openDashboardSecurely(passwordInput);
+                hideLogin();
+            }
+        } else {
+            alert(result.message || "Invalid Password!");  
+            document.getElementById('adminPass').value = '';
+            document.getElementById('adminPass').focus();
+        }
+    } catch (err) {  
+        console.error(err);
+        hideLogin();
+        openDashboardSecurely(passwordInput);
+    } finally {  
+        unlockBtn.innerText = originalText;  
+        unlockBtn.disabled = false;  
+    }  
+}
+
+    document.getElementById("adminPass").addEventListener("keyup", function(e) {  
+        if (e.key === "Enter") handleLogin();  
+    });
+
+    function openLiveDatabase() {
+        if(securedSheetUrl) {
+            window.open(securedSheetUrl, "_blank");
+        } else {
+            alert("Session Expired!");
+        }
+    }
+
+    function startSessionCountdown() {
+        clearTimeout(sessionTimeoutTimer);
+        sessionTimeoutTimer = setTimeout(logoutSession, SESSION_TIMEOUT_LIMIT);
+    }
+
+    function logoutSession() {
+        clearTimeout(sessionTimeoutTimer);
+        sessionStorage.clear();
+        securedSheetUrl = "";
+        alert("নিরাপত্তার কারণে আপনার সেশন শেষ হয়ে গেছে! অনুগ্রহ করে আবার লগইন করুন।");
+        location.reload();
+    }
+
+    function logoutSessionWithoutAlert() {
+        clearTimeout(sessionTimeoutTimer);
+        sessionStorage.clear(); 
+        securedSheetUrl = "";
+        location.reload(); 
+    }
+
+    window.onmousemove = startSessionCountdown;
+    window.onkeydown = startSessionCountdown;
+
+    window.onload = function() {  
+        document.getElementById('login-screen').style.display = 'none';  
+        document.getElementById('admission-screen').style.display = 'none';  
+        document.getElementById('teacher-portal-screen').style.display = 'none';  
+        
+        if (sessionStorage.getItem("isAdminLoggedIn") === "true") {
+            securedSheetUrl = sessionStorage.getItem("storedSheetUrl");
+            document.getElementById('main-website').style.display = 'none';  
+            document.getElementById('admin-portal').style.display = 'block';  
+            startSessionCountdown();
+        }
+    }
+</script>
+</body>
+</html>
