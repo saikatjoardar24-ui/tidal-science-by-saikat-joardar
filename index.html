@@ -22,7 +22,7 @@
         
         header { background: rgba(7, 11, 20, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); color: white; padding: 15px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(14, 165, 233, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
         
-        /* লোগো সেকশন - নতুন সিএসএস যোগ করা হয়েছে */
+        /* লোগো সেকশন */
         .logo { display: flex; align-items: center; gap: 12px; }
         .header-logo-img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(14, 165, 233, 0.5); object-fit: cover; }
         .logo-text-group { display: flex; align-items: center; gap: 10px; }
@@ -73,7 +73,7 @@
         .feature-card h3 { font-size: 20px; color: #fbbf24; margin-bottom: 10px; }
         .feature-card p { color: #cbd5e1; font-size: 14px; line-height: 1.6; }
 
-        /* সার্চ সেকশন - প্রিমিয়াম প্রফেশনাল মেটালিক ফিনিশ */
+        /* সার্চ সেকশন */
         .search-section { padding: 50px 6%; max-width: 800px; margin: auto; }
         .search-card { background: linear-gradient(145deg, #0b1329, #111d3a); padding: 40px; border-radius: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); text-align: center; border: 1px solid rgba(14, 165, 233, 0.25); }
         .search-card h2 { font-size: 28px; color: #ffffff; margin-bottom: 8px; }
@@ -98,7 +98,6 @@
         .badge { padding: 6px 14px; border-radius: 12px; font-size: 13px; font-weight: bold; text-transform: uppercase; }
         .paid { background: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); }
         .unpaid { background: #5c3e03; color: #fbbf24; }
-        .badge-soon { background: rgba(14, 165, 233, 0.1); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.2); }
 
         /* ফুটার এবং ক্রেডিট */
         footer { background: #040810; color: #64748b; text-align: center; padding: 60px 6% 30px; border-top: 1px solid rgba(14, 165, 233, 0.1); }
@@ -270,6 +269,7 @@
             </div>
             <div id="loader" class="loader">Checking database... Please wait.</div>
             <div id="error" class="error">No records found! Please check your spelling or mobile number and try again.</div>
+            
             <div id="resultCard" class="result-card">
                 <div class="card-header">
                     <h3 id="studentName">Student Name</h3>
@@ -279,7 +279,14 @@
                 <div class="info-row"><span class="label">Batch / Class</span><span class="value" id="studentCourse">-</span></div>
                 <div class="info-row"><span class="label">Admission Date</span><span class="value" id="studentAdmission">-</span></div>
                 <div class="info-row"><span class="label">Total Attendance</span><span class="value" id="studentAttendance" style="color: #22d3ee;">0 Days</span></div>
-                <div class="info-row"><span class="label">Monthly Assignment</span><span id="studentAssignment" class="badge badge-soon">Coming Soon</span></div>
+                
+                <div class="info-row"><span class="label">Last Assessment</span><span class="value" id="studentAssessmentName" style="color: #fbbf24;">-</span></div>
+                <div class="info-row"><span class="label">Assessment Score</span><span class="value" id="studentAssessmentScore">-</span></div>
+                
+                <!-- নতুন দুটি ফিল্ড নিচে যুক্ত করা হলো -->
+                <div class="info-row"><span class="label">Next Day Class Subject</span><span class="value" id="studentNextClassSubject" style="color: #38bdf8;">-</span></div>
+                <div class="info-row"><span class="label">Next Assessment</span><span class="value" id="studentNextAssessment" style="color: #ef4444;">-</span></div>
+                
                 <div class="info-row"><span class="label">Payment Status</span><span id="studentPayment" class="badge">-</span></div>
             </div>
         </div>
@@ -360,7 +367,7 @@
     </div>
 </div>
 <script>
-    const webAppUrl = 'https://script.google.com/macros/s/AKfycbxahvqCygfNMlM52VwE_rJIOC5pMeDTxtjA9lgFL7WGajHHsMPOS99ToNp0gl-FnZJiCg/exec';
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbwqQ2mdiZ2wNpvMkVnZmvza9m6MoXLpILG469LOyozeaL89vx9zKidRdCv_8EwB7iZe/exec';
     
     let securedSheetUrl = ""; 
     let sessionTimeoutTimer;
@@ -434,7 +441,7 @@
                 loader.style.display = 'none';  
                 error.innerText = "No records found! Please check your spelling or mobile number and try again.";  
                 error.style.display = 'block';  
-                return;
+                return;  
             }  
             
             const student = result.data;  
@@ -444,6 +451,14 @@
             document.getElementById('studentCourse').innerText = student.course;  
             document.getElementById('studentAdmission').innerText = student.admission || "N/A";  
             document.getElementById('studentAttendance').innerText = (student.totalAttendance || 0) + " Days";  
+            
+            // গুগল শিটের ডেটা ডাইনামিকলি বসবে
+            document.getElementById('studentAssessmentName').innerText = student.lastAssessmentName || "No Exam Yet";  
+            document.getElementById('studentAssessmentScore').innerText = student.lastAssessmentScore || "N/A";  
+            
+            // নতুন দুটি ফিল্ডের ডেটা রেন্ডারিং (গুগল স্ক্রিপ্টের রেসপন্স কী-অনুযায়ী)
+            document.getElementById('studentNextClassSubject').innerText = student.nextDayClassSubject || "No Class Scheduled";
+            document.getElementById('studentNextAssessment').innerText = student.nextAssessment || "No Exam Scheduled";
             
             const payBadge = document.getElementById('studentPayment');  
             if (student.lastPayment === "No Record" || !student.lastPayment) {  
