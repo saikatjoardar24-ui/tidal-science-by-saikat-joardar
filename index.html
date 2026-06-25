@@ -400,69 +400,65 @@
         document.body.style.overflow = 'auto';
     }
 
-    function openDashboardSecurely(pass) {
-        var container = document.getElementById('teacher-iframe-container');
-        container.innerHTML = ''; 
+ //  এই নতুন কোডটুকু ওই খালি জায়গায় বসিয়ে দিন 
+function openDashboardSecurely(pass) {
+    var container = document.getElementById('teacher-iframe-container');
+    container.innerHTML = ''; 
 
-        var iframe = document.createElement('iframe');
-        iframe.name = 'secure_teacher_frame';
-        iframe.width = '100%';
-        iframe.height = '100%';
-        iframe.frameBorder = '0';
-        container.appendChild(iframe);
+    // মোবাইল স্ক্রিন নাকি কম্পিউটার স্ক্রিন তা ডিটেক্ট করার কোড
+    var isMobile = window.innerWidth <= 768;
 
-        // শিক্ষক লগইন (s9832) হলে সুন্দর কন্ট্রোল বাটন ২টি উপরে ভেসে উঠবে
-        if (pass === "s9832") {
-            document.getElementById('teacherBtnGroup').style.display = 'flex';
-            
-            // "উপস্থিতি খাতা" বাটনে ক্লিক করলে
-            document.getElementById('loadAttendanceBtn').onclick = function() {
-                container.innerHTML = ''; // পুরানো ফ্রেম মুছে নতুন করে লোড হবে যেন এরর না আসে
-                container.appendChild(iframe);
-                
-                var form = document.createElement("form");
-                form.method = "POST"; 
-                form.action = webAppUrl + "?mode=attendance"; 
-                form.target = "secure_teacher_frame"; 
-
-                var input = document.createElement("input");
-                input.type = "hidden";
-                input.name = "pass";
-                input.value = pass;
-                
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit();
-                document.body.removeChild(form);
-            };
-
-            // "মোবাইল পেমেন্ট খাতা" বাটনে ক্লিক করলে তা সরাসরি সুন্দর পপআপ বক্সের ফ্রেমেই বদলে যাবে
-            document.getElementById('loadPaymentBtn').onclick = function() {
-                iframe.src = webAppUrl + "?mode=payment_ui";
-            };
-        } else {
-            document.getElementById('teacherBtnGroup').style.display = 'none';
-        }
-
-        // প্রথমে স্বয়ংক্রিয়ভাবে উপস্থিতি খাতাই ওপেন হবে
-        var form = document.createElement("form");
-        form.method = "POST"; 
-        form.action = webAppUrl + "?mode=attendance"; 
-        form.target = "secure_teacher_frame"; 
-
-        var input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "pass";
-        input.value = pass;
+    // শিক্ষক লগইন (s9832) হলে বাটন ২টি ড্যাশবোর্ডে দৃশ্যমান হবে
+    if (pass === "s9832") {
+        document.getElementById('teacherBtnGroup').style.display = 'flex';
         
-        form.appendChild(input);
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
+        // "উপস্থিতি খাতা" বাটনে ক্লিক করলে
+        document.getElementById('loadAttendanceBtn').onclick = function() {
+            var targetUrl = webAppUrl + "?mode=attendance&pass=" + encodeURIComponent(pass);
+            if (isMobile) {
+                // মোবাইলে কোনো এরর ছাড়া সরাসরি ফুল স্ক্রিনে ওপেন হবে
+                window.location.href = targetUrl;
+            } else {
+                // কম্পিউটারে সুন্দর ফ্রেমের ভেতরেই লোড হবে
+                container.innerHTML = '';
+                container.appendChild(iframe);
+                iframe.src = targetUrl;
+            }
+        };
 
+        // "মোবাইল পেমেন্ট খাতা" বাটনে ক্লিক করলে
+        document.getElementById('loadPaymentBtn').onclick = function() {
+            var targetUrl = webAppUrl + "?mode=payment_ui";
+            if (isMobile) {
+                // মোবাইলে এরর এড়াতে সরাসরি ফুল স্ক্রিনে ওপেন হবে
+                window.location.href = targetUrl;
+            } else {
+                // কম্পিউটারে সুন্দর ফ্রেমের ভেতরেই বদলে যাবে
+                iframe.src = targetUrl;
+            }
+        };
+    } else {
+        document.getElementById('teacherBtnGroup').style.display = 'none';
+    }
+
+    // ফ্রেম তৈরি (কম্পিউটার ভিউ-এর জন্য)
+    var iframe = document.createElement('iframe');
+    iframe.name = 'secure_teacher_frame';
+    iframe.width = '100%';
+    iframe.height = '100%';
+    iframe.frameBorder = '0';
+    container.appendChild(iframe);
+
+    // প্রথমবার ওপেন করার সময় স্বয়ংক্রিয় অ্যাকশন নির্ধারণ
+    var initialUrl = webAppUrl + "?mode=attendance&pass=" + encodeURIComponent(pass);
+    if (isMobile) {
+        window.location.href = initialUrl;
+    } else {
+        iframe.src = initialUrl;
         showTeacherPortal();
         startSessionCountdown();
     }
+}
 
     async function startSearch() {  
         const query = document.getElementById('searchInput').value.trim();  
