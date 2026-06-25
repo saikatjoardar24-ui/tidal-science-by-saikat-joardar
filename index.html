@@ -400,40 +400,38 @@
         document.body.style.overflow = 'auto';
     }
 
- //  এই নতুন কোডটুকু ওই খালি জায়গায় বসিয়ে দিন 
 function openDashboardSecurely(pass) {
     var container = document.getElementById('teacher-iframe-container');
     container.innerHTML = ''; 
 
-    // মোবাইল স্ক্রিন নাকি কম্পিউটার স্ক্রিন তা ডিটেক্ট করার কোড
+    // মোবাইল নাকি কম্পিউটার ডিটেক্ট করা হচ্ছে
     var isMobile = window.innerWidth <= 768;
 
-    // শিক্ষক লগইন (s9832) হলে বাটন ২টি ড্যাশবোর্ডে দৃশ্যমান হবে
     if (pass === "s9832") {
         document.getElementById('teacherBtnGroup').style.display = 'flex';
         
-        // "উপস্থিতি খাতা" বাটনে ক্লিক করলে
+        // "উপস্থিতি খাতা" বাটনের অ্যাকশন
         document.getElementById('loadAttendanceBtn').onclick = function() {
             var targetUrl = webAppUrl + "?mode=attendance&pass=" + encodeURIComponent(pass);
             if (isMobile) {
-                // মোবাইলে কোনো এরর ছাড়া সরাসরি ফুল স্ক্রিনে ওপেন হবে
-                window.location.href = targetUrl;
+                // মোবাইলে সরাসরি নতুন উইন্ডোতে ব্লকিং ছাড়া ওপেন হবে
+                window.open(targetUrl, '_blank');
             } else {
-                // কম্পিউটারে সুন্দর ফ্রেমের ভেতরেই লোড হবে
                 container.innerHTML = '';
                 container.appendChild(iframe);
                 iframe.src = targetUrl;
             }
         };
 
-        // "মোবাইল পেমেন্ট খাতা" বাটনে ক্লিক করলে
+        // "মোবাইল পেমেন্ট খাতা" বাটনের অ্যাকশন
         document.getElementById('loadPaymentBtn').onclick = function() {
             var targetUrl = webAppUrl + "?mode=payment_ui";
             if (isMobile) {
-                // মোবাইলে এরর এড়াতে সরাসরি ফুল স্ক্রিনে ওপেন হবে
-                window.location.href = targetUrl;
+                // মোবাইলে সরাসরি নতুন উইন্ডোতে ব্লকিং ছাড়া ওপেন হবে
+                window.open(targetUrl, '_blank');
             } else {
-                // কম্পিউটারে সুন্দর ফ্রেমের ভেতরেই বদলে যাবে
+                container.innerHTML = '';
+                container.appendChild(iframe);
                 iframe.src = targetUrl;
             }
         };
@@ -441,19 +439,20 @@ function openDashboardSecurely(pass) {
         document.getElementById('teacherBtnGroup').style.display = 'none';
     }
 
-    // ফ্রেম তৈরি (কম্পিউটার ভিউ-এর জন্য)
+    // ডেস্কটপের জন্য সাধারণ ফ্রেম সেটআপ
     var iframe = document.createElement('iframe');
     iframe.name = 'secure_teacher_frame';
     iframe.width = '100%';
     iframe.height = '100%';
     iframe.frameBorder = '0';
-    container.appendChild(iframe);
 
-    // প্রথমবার ওপেন করার সময় স্বয়ংক্রিয় অ্যাকশন নির্ধারণ
     var initialUrl = webAppUrl + "?mode=attendance&pass=" + encodeURIComponent(pass);
+    
     if (isMobile) {
-        window.location.href = initialUrl;
+        // মোবাইল হলে কোনো পপআপ স্ক্রিন বা ব্লকিং ছাড়াই সরাসরি নতুন ট্যাবে ফুল স্ক্রিন সার্ভিস রেন্ডার করবে
+        window.open(initialUrl, '_blank');
     } else {
+        container.appendChild(iframe);
         iframe.src = initialUrl;
         showTeacherPortal();
         startSessionCountdown();
