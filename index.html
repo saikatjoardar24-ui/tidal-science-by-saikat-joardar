@@ -151,16 +151,6 @@
         .open-db-btn { background: linear-gradient(135deg, #0284c7, #2563eb); color: white; border: none; padding: 16px 40px; border-radius: 12px; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); display: flex; align-items: center; gap: 10px; }
         .open-db-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4); }
 
-        /* শিক্ষকদের জন্য আলাদা বাটন এরিয়ার ডিজাইন */
-        .teacher-btn-wrapper { background: #070b14; padding: 15px; border-bottom: 1px solid rgba(14, 165, 233, 0.2); display: none; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .teacher-action-btn { display: inline-flex; align-items: center; gap: 6px; color: white !important; font-weight: 700; font-size: 15px; padding: 10px 20px; border-radius: 8px; text-decoration: none; transition: 0.3s; cursor: pointer; border: none; }
-        
-        .btn-attendance-mode { background: #2563eb; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3); }
-        .btn-attendance-mode:hover { background: #1d4ed8; transform: translateY(-1px); }
-        
-        .btn-payment-mode { background: #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3); }
-        .btn-payment-mode:hover { background: #16a34a; transform: translateY(-1px); }
-
         .logout-btn { padding: 10px 22px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2); }
         .logout-btn:hover { background: #dc2626; transform: translateY(-1px); }
 
@@ -203,8 +193,6 @@
             #admin-portal { padding: 10px; }
             .admin-db-container { height: 70vh; padding: 15px; }
             .open-db-btn { width: 100%; justify-content: center; padding: 15px; font-size: 18px; }
-            .teacher-btn-wrapper { padding: 10px; gap: 8px; }
-            .teacher-action-btn { width: 100%; justify-content: center; font-size: 14px; padding: 12px; }
         }
     </style>
 </head>
@@ -295,6 +283,7 @@
                 <div class="info-row"><span class="label">Last Assessment</span><span class="value" id="studentAssessmentName" style="color: #fbbf24;">-</span></div>
                 <div class="info-row"><span class="label">Assessment Score</span><span class="value" id="studentAssessmentScore">-</span></div>
                 
+                <!-- নতুন দুটি ফিল্ড নিচে যুক্ত করা হলো -->
                 <div class="info-row"><span class="label">Next Day Class Subject</span><span class="value" id="studentNextClassSubject" style="color: #38bdf8;">-</span></div>
                 <div class="info-row"><span class="label">Next Assessment</span><span class="value" id="studentNextAssessment" style="color: #ef4444;">-</span></div>
                 
@@ -346,10 +335,6 @@
             <h3><span>●</span> System Notification Gateway</h3>
             <button class="cancel-back-btn" onclick="hideTeacherPortal()">✕ Cancel & Back</button>
         </div>
-        <div id="teacherBtnGroup" class="teacher-btn-wrapper">
-            <button id="loadAttendanceBtn" class="teacher-action-btn btn-attendance-mode">📝 উপস্থিতি খাতা দেখুন</button>
-            <button id="loadPaymentBtn" class="teacher-action-btn btn-payment-mode">💰 মোবাইল পেমেন্ট খাতা খুলুন</button>
-        </div>
         <div class="admission-iframe-wrapper" id="teacher-iframe-container">
         </div>
     </div>
@@ -382,7 +367,7 @@
     </div>
 </div>
 <script>
-    const webAppUrl = 'https://script.google.com/macros/s/AKfycbyVsbyynvdOMvQO9UFAkUGlej8lKmQC_rNuLonjj7udxeSVBu0bFqqbtEIDnj2vjS3Y5A/exec';
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbxqETtugNsRQOK3qtG86Cvsgjv2vl2RI1l_ezaz6X3wRSp9WquSJlj_flqTT1gWJ8PvgA/exec';
     
     let securedSheetUrl = ""; 
     let sessionTimeoutTimer;
@@ -396,68 +381,38 @@
     function hideTeacherPortal() {
         document.getElementById('teacher-portal-screen').style.display = 'none';
         document.getElementById('teacher-iframe-container').innerHTML = ''; 
-        document.getElementById('teacherBtnGroup').style.display = 'none'; 
         document.body.style.overflow = 'auto';
     }
 
-function openDashboardSecurely(pass) {
-    var container = document.getElementById('teacher-iframe-container');
-    container.innerHTML = ''; 
+    function openDashboardSecurely(pass) {
+        var container = document.getElementById('teacher-iframe-container');
+        container.innerHTML = ''; 
 
-    // মোবাইল নাকি কম্পিউটার ডিটেক্ট করা হচ্ছে
-    var isMobile = window.innerWidth <= 768;
-
-    if (pass === "s9832") {
-        document.getElementById('teacherBtnGroup').style.display = 'flex';
-        
-        // "উপস্থিতি খাতা" বাটনের অ্যাকশন
-        document.getElementById('loadAttendanceBtn').onclick = function() {
-            var targetUrl = webAppUrl + "?mode=attendance&pass=" + encodeURIComponent(pass);
-            if (isMobile) {
-                // মোবাইলে সরাসরি নতুন উইন্ডোতে ব্লকিং ছাড়া ওপেন হবে
-                window.open(targetUrl, '_blank');
-            } else {
-                container.innerHTML = '';
-                container.appendChild(iframe);
-                iframe.src = targetUrl;
-            }
-        };
-
-        // "মোবাইল পেমেন্ট খাতা" বাটনের অ্যাকশন
-        document.getElementById('loadPaymentBtn').onclick = function() {
-            var targetUrl = webAppUrl + "?mode=payment_ui";
-            if (isMobile) {
-                // মোবাইলে সরাসরি নতুন উইন্ডোতে ব্লকিং ছাড়া ওপেন হবে
-                window.open(targetUrl, '_blank');
-            } else {
-                container.innerHTML = '';
-                container.appendChild(iframe);
-                iframe.src = targetUrl;
-            }
-        };
-    } else {
-        document.getElementById('teacherBtnGroup').style.display = 'none';
-    }
-
-    // ডেস্কটপের জন্য সাধারণ ফ্রেম সেটআপ
-    var iframe = document.createElement('iframe');
-    iframe.name = 'secure_teacher_frame';
-    iframe.width = '100%';
-    iframe.height = '100%';
-    iframe.frameBorder = '0';
-
-    var initialUrl = webAppUrl + "?mode=attendance&pass=" + encodeURIComponent(pass);
-    
-    if (isMobile) {
-        // মোবাইল হলে কোনো পপআপ স্ক্রিন বা ব্লকিং ছাড়াই সরাসরি নতুন ট্যাবে ফুল স্ক্রিন সার্ভিস রেন্ডার করবে
-        window.open(initialUrl, '_blank');
-    } else {
+        var iframe = document.createElement('iframe');
+        iframe.name = 'secure_teacher_frame';
+        iframe.width = '100%';
+        iframe.height = '100%';
+        iframe.frameBorder = '0';
         container.appendChild(iframe);
-        iframe.src = initialUrl;
+
+        var form = document.createElement("form");
+        form.method = "POST"; 
+        form.action = webAppUrl + "?mode=attendance"; 
+        form.target = "secure_teacher_frame"; 
+
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "pass";
+        input.value = pass;
+        
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+
         showTeacherPortal();
         startSessionCountdown();
     }
-}
 
     async function startSearch() {  
         const query = document.getElementById('searchInput').value.trim();  
@@ -497,9 +452,11 @@ function openDashboardSecurely(pass) {
             document.getElementById('studentAdmission').innerText = student.admission || "N/A";  
             document.getElementById('studentAttendance').innerText = (student.totalAttendance || 0) + " Days";  
             
+            // গুগল শিটের ডেটা ডাইনামিকলি বসবে
             document.getElementById('studentAssessmentName').innerText = student.lastAssessmentName || "No Exam Yet";  
             document.getElementById('studentAssessmentScore').innerText = student.lastAssessmentScore || "N/A";  
             
+            // নতুন দুটি ফিল্ডের ডেটা রেন্ডারিং (গুগল স্ক্রিপ্টের রেসপন্স কী-অনুযায়ী)
             document.getElementById('studentNextClassSubject').innerText = student.nextDayClassSubject || "No Class Scheduled";
             document.getElementById('studentNextAssessment').innerText = student.nextAssessment || "No Exam Scheduled";
             
