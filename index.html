@@ -384,10 +384,34 @@
         document.body.style.overflow = 'auto';
     }
 
-function openDashboardSecurely(pass) {
-        // সরাসরি নতুন ট্যাবে খুলবে, এতে গুগল ব্লক করবে না
-        window.open(webAppUrl + "?mode=attendance&pass=" + encodeURIComponent(pass), "_blank");
-        hideLogin();
+    function openDashboardSecurely(pass) {
+        var container = document.getElementById('teacher-iframe-container');
+        container.innerHTML = ''; 
+
+        var iframe = document.createElement('iframe');
+        iframe.name = 'secure_teacher_frame';
+        iframe.width = '100%';
+        iframe.height = '100%';
+        iframe.frameBorder = '0';
+        container.appendChild(iframe);
+
+        var form = document.createElement("form");
+        form.method = "POST"; 
+        form.action = webAppUrl + "?mode=attendance"; 
+        form.target = "secure_teacher_frame"; 
+
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "pass";
+        input.value = pass;
+        
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+
+        showTeacherPortal();
+        startSessionCountdown();
     }
 
     async function startSearch() {  
@@ -587,4 +611,4 @@ function openDashboardSecurely(pass) {
     }
 </script>
 </body>
-</html>   
+</html>
